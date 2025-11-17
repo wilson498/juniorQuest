@@ -25,6 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.leetcode.wordle.enumdata.GameStatus;
 import org.example.leetcode.wordle.response.WordleGameResponse;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Slf4j
 public class Wordle {
     public final static int MAX_COUNT = 6;
@@ -41,22 +44,52 @@ public class Wordle {
         curCount++;
     }
 
-    private GameStatus checkGameStatus(String result) {
-        if (curCount <= Wordle.MAX_COUNT) {
-            if ("GGGGG".equals(result)) {
-                return GameStatus.WIN;
+    private GameStatus getGameStatus(String input) {
+        if (curCount > Wordle.MAX_COUNT) {
+            return GameStatus.OVERED;
+        } else if (ans.equals(input)) {
+            return GameStatus.WIN;
+        } else if (curCount == Wordle.MAX_COUNT) {
+            return GameStatus.Fail;
+        } else {
+            return GameStatus.WARING;
+        }
+    }
+
+    private String createTips(String input) {
+        char[] chars = input.toCharArray();
+        Set<Character> gExist = new HashSet<>();
+        Set<Character> yExist = new HashSet<>();
+        for (int i = 0; i < input.length(); i++) {
+            if (ans.charAt(i) == chars[i]) {
+                chars[i] = 'G';
+                gExist.add(ans.charAt(i));
+            } else if (ans.contains("" + chars[i])) {
+                chars[i] = 'Y';
             } else {
-                return GameStatus.WARG;
+                chars[i] = '_';
             }
         }
-        return GameStatus.Fail;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == 'Y') {
+                char ch = input.charAt(i);
+                if (gExist.contains(ch) || yExist.contains(ch)) {
+                    chars[i] = '_';
+                } else {
+                    yExist.add(ch);
+                }
+            }
+        }
+
+        return String.valueOf(chars);
     }
 
     public WordleGameResponse game(String input) {
-        StringBuilder result = new StringBuilder();
-
-
-
-        return null;
+        addCount();
+        return new WordleGameResponse(
+                createTips(input),
+                getGameStatus(input),
+                curCount
+        );
     }
 }
