@@ -12,14 +12,14 @@ public class WordleTest {
     @Test
     public void 贏得遊戲＿回應Win() {
         Wordle wordle = new Wordle("apple");
-        String result = wordle.gameRefactor("apple");
+        String result = wordle.game("apple").getResult();
         Assertions.assertEquals("Win", result);
     }
 
     @Test
     public void 輸入字串有重複字元_回傳相對應提示值() {
         Wordle wordle = new Wordle("apple");
-        String result = wordle.gameRefactor("allee");
+        String result = wordle.game("allee").getResult();
         Assertions.assertEquals("GY__G", result);
     }
 
@@ -27,7 +27,7 @@ public class WordleTest {
     @Test
     public void 輸入字串無重複字元_回傳相對應提示值() {
         Wordle wordle = new Wordle("apple");
-        String result = wordle.gameRefactor("aopde");
+        String result = wordle.game("aopde").getResult();
         Assertions.assertEquals("G_G_G", result);
     }
 
@@ -35,10 +35,10 @@ public class WordleTest {
     public void 遊戲限制次數內輸入正確＿贏得比賽_回應Win() {
         Wordle wordle = new Wordle("apple");
         for (int i = 0; i < 5; i++) {
-            String result = wordle.gameRefactor("egpia");
+            String result = wordle.game("egpia").getResult();
             Assertions.assertEquals("Y_G_Y", result);
         }
-        String r = wordle.gameRefactor("apple");
+        String r = wordle.game("apple").getResult();
         Assertions.assertEquals("Win", r);
     }
 
@@ -48,10 +48,10 @@ public class WordleTest {
         Wordle wordle = new Wordle("apple");
         String result;
         for (int i = 0; i < 5; i++) {
-            result = wordle.gameRefactor("aggie");
+            result = wordle.game("aggie").getResult();
             Assertions.assertEquals("G___G", result);
         }
-        result = wordle.gameRefactor("aggie");
+        result = wordle.game("aggie").getResult();
         Assertions.assertEquals("Fail", result);
 
     }

@@ -22,63 +22,33 @@ Y：字母存在於答案中，但位置錯誤
  */
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.leetcode.enumdata.GameStatus;
+import org.example.leetcode.response.WordleGameResponse;
 
 @Slf4j
 public class Wordle {
-    private final String ans;
-    private int MAX_COUNT = 6;
+    public final static int MAX_COUNT = 6;
+
+    private final String  ans;
+    private int curCount;
 
     public Wordle(String ans) {
         this.ans = ans;
-
+        curCount = 0;
     }
 
 
-    private char checkChar(int index, char ch) {
-        if (ans.charAt(index) == ch) {
-            return 'G';
-        } else {
-            return ans.contains(String.valueOf(ch)) ? 'Y' : '_';
-        }
-    }
-
-    public String gameRefactor(String input) {
+    public WordleGameResponse game(String input) {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < input.length(); i++) {
-            char ch = input.charAt(i);
-            char c = checkChar(i, ch);
-            if (c == 'Y') {
-                for (int j = i - 1; j >= 0; j--) {
-                    if (input.charAt(j) == ch) {
-                        c = '_';
-                        break;
-                    }
-                }
-                for (int j = 0; j < input.length(); j++) {
-                    if (input.charAt(j) == ch && ans.charAt(j) == input.charAt(j)) {
-                        c = '_';
-                        break;
-                    }
-                }
-            }
-            result.append(c);
-        }
-        return gameResult(result);
-    }
-
-    private String gameResult(StringBuilder result) {
-        if (result.toString().equals("GGGGG")) {
-            return "Win";
-        } else {
-            MAX_COUNT--;
-            if (MAX_COUNT < 1) {
-                return "Fail";
+        for (int i = 0; i < ans.length(); i++) {
+            if (ans.charAt(i) == input.charAt(i)) {
+                result.append("G");
+            } else if(ans.contains(String.valueOf(input.charAt(i)))) {
+                result.append("Y");
+            } else{
+                result.append("_");
             }
         }
-        return result.toString();
+        return null;
     }
-
-
-
-
 }
