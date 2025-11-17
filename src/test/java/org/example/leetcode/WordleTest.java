@@ -19,7 +19,7 @@ public class WordleTest {
         Assertions.assertEquals(GameStatus.WIN, response.getGameStatus());
     }
     @Test
-    public void 輸入字串有重複字元_回傳相對應提示值2() {
+    public void 輸入字串有重複字元並且存在兩個相同的字元_回傳相對應提示值() {
         Wordle wordle = new Wordle("apple");
         String result = wordle.game("swrpp").getTips();
         Assertions.assertEquals("___YY", result);
