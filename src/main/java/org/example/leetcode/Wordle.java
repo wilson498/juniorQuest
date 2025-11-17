@@ -79,45 +79,6 @@ public class Wordle {
     }
 
 
-    public String game(String input) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < ans.length(); i++) {
-            if (ans.charAt(i) == input.charAt(i)) {
-                result.append("G");
-                for (int j = i - 1; j >= 0; j--) {
-                    if (input.charAt(j) == input.charAt(i) && ans.charAt(j) != input.charAt(j)) {
-                        result.setCharAt(j, '_');
-                        break;
-                    }
-                }
-            } else {
-                boolean flag = true;
-                for (int j = 0; j < input.length(); j++) {
-                    if (i != j && ans.charAt(j) == input.charAt(i)) {
-                        boolean b = true;
-                        for (int k = i - 1; k >= 0; k--) {
-                            if (input.charAt(i) == input.charAt(k)) {
-                                b = false;
-                                break;
-                            }
-                        }
-                        if (b) {
-
-                            result.append("Y");
-                            flag = false;
-                            break;
-                        }
-                    }
-                }
-                if (flag) {
-                    result.append("_");
-                }
-            }
-
-
-        }
-        return gameResult(result);
-    }
 
 
 }
