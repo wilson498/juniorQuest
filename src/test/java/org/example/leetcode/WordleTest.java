@@ -18,6 +18,12 @@ public class WordleTest {
         WordleGameResponse response = wordle.game("apple");
         Assertions.assertEquals(GameStatus.WIN, response.getGameStatus());
     }
+    @Test
+    public void 輸入字串有重複字元_回傳相對應提示值2() {
+        Wordle wordle = new Wordle("apple");
+        String result = wordle.game("swrpp").getTips();
+        Assertions.assertEquals("___YY", result);
+    }
 
     @Test
     public void 輸入字串有重複字元_回傳相對應提示值() {
