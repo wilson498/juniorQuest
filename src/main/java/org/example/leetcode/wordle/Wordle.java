@@ -22,22 +22,35 @@ Y：字母存在於答案中，但位置錯誤
  */
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.leetcode.wordle.entity.LetterData;
 import org.example.leetcode.wordle.enumdata.GameStatus;
 import org.example.leetcode.wordle.response.WordleGameResponse;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class Wordle {
     public final static int MAX_COUNT = 6;
 
     private final String ans;
+    private final Map<Character, LetterData> wordLetterMap;
     private int curCount;
 
     public Wordle(String ans) {
         this.ans = ans;
+        this.wordLetterMap = new HashMap<>();
         curCount = 0;
+    }
+
+    private void initWordLetterMap() {
+        wordLetterMap.clear();
+        for (int i = 0; i < ans.length(); i++) {
+            Character ch = ans.charAt(i);
+            LetterData ld = wordLetterMap.getOrDefault(ch, new LetterData());
+            ld.addIndex(i);
+            wordLetterMap.put(ch, ld);
+        }
     }
 
     private void addCount() {
@@ -57,31 +70,50 @@ public class Wordle {
     }
 
     private String createTips(String input) {
-        char[] chars = input.toCharArray();
-        Set<Character> gExist = new HashSet<>();
-        Set<Character> yExist = new HashSet<>();
+        initWordLetterMap();
+        char[] chars = checkGreenAndYellow(input);
+        checkFinalYellowLetter(input, chars);
+        return new String(chars);
+    }
+
+    private char[] checkGreenAndYellow(String input) {
+        char[] chars = new char[ans.length()];
         for (int i = 0; i < input.length(); i++) {
-            if (ans.charAt(i) == chars[i]) {
-                chars[i] = 'G';
-                gExist.add(ans.charAt(i));
-            } else if (ans.contains("" + chars[i])) {
-                chars[i] = 'Y';
+            char c = input.charAt(i);
+            LetterData ld = wordLetterMap.get(c);
+            if (ld != null) {
+                if (ld.contains(i)) {
+                    chars[i] = 'G';
+                    ld.removeOne();
+                } else {
+                    chars[i] = 'Y';
+                }
+                if (ld.getListSize() == 0) {
+                    wordLetterMap.remove(c);
+                }
             } else {
                 chars[i] = '_';
             }
         }
+        return chars;
+    }
+
+    private void checkFinalYellowLetter(String input, char[] chars) {
         for (int i = 0; i < chars.length; i++) {
+            char c = input.charAt(i);
             if (chars[i] == 'Y') {
-                char ch = input.charAt(i);
-                if (gExist.contains(ch) || yExist.contains(ch)) {
-                    chars[i] = '_';
+                LetterData ld = wordLetterMap.get(c);
+                if (ld != null) {
+                    chars[i] = 'Y';
+                    ld.removeOne();
+                    if (ld.getListSize() == 0) {
+                        wordLetterMap.remove(c);
+                    }
                 } else {
-                    yExist.add(ch);
+                    chars[i] = '_';
                 }
             }
         }
-
-        return String.valueOf(chars);
     }
 
     public WordleGameResponse game(String input) {
