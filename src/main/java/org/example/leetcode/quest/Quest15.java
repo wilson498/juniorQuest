@@ -1,4 +1,4 @@
-package org.example.leetcode;
+package org.example.leetcode.quest;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

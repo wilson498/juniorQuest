@@ -1,4 +1,4 @@
-package org.example.leetcode;
+package org.example.leetcode.quest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

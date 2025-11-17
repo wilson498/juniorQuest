@@ -1,4 +1,4 @@
-package org.example.leetcode.enumdata;
+package org.example.leetcode.wordle.enumdata;
 
 
 public enum GameStatus {

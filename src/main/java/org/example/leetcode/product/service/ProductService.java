@@ -1,9 +1,9 @@
-package org.example.leetcode.service;
+package org.example.leetcode.product.service;
 
-import org.example.leetcode.config.DiscountConfig;
-import org.example.leetcode.config.ProductAmountDiscountConfig;
-import org.example.leetcode.config.QtyAmountDiscountConfig;
-import org.example.leetcode.entity.Cart;
+import org.example.leetcode.product.config.DiscountConfig;
+import org.example.leetcode.product.config.ProductAmountDiscountConfig;
+import org.example.leetcode.product.config.QtyAmountDiscountConfig;
+import org.example.leetcode.product.entity.Cart;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package org.example.leetcode.config;
+package org.example.leetcode.product.config;
 
-import org.example.leetcode.entity.Cart;
+import org.example.leetcode.product.entity.Cart;
 
 public record QtyAmountDiscountConfig(int target) implements DiscountConfig {
 

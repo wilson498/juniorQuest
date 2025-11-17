@@ -1,5 +1,6 @@
 package org.example.leetcode;
 
+import org.example.leetcode.quest.Quest12;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,8 @@
 package org.example.leetcode.service;
 
-import org.example.leetcode.entity.Cart;
-import org.example.leetcode.entity.Product;
+import org.example.leetcode.product.entity.Cart;
+import org.example.leetcode.product.entity.Product;
+import org.example.leetcode.product.service.ProductService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

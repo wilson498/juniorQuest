@@ -1,4 +1,4 @@
-package org.example.leetcode.entity;
+package org.example.leetcode.product.entity;
 
 
 import lombok.Data;
