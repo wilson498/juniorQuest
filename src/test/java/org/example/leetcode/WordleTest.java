@@ -10,14 +10,14 @@ public class WordleTest {
 
 
     @Test
-    public void winGameTest() {
+    public void 贏得遊戲＿回應Win() {
         Wordle wordle = new Wordle("apple");
         String result = wordle.gameRefactor("apple");
         Assertions.assertEquals("Win", result);
     }
 
     @Test
-    public void OneGameGameTest2() {
+    public void 輸入字串有重複字元_回傳相對應提示值() {
         Wordle wordle = new Wordle("apple");
         String result = wordle.gameRefactor("allee");
         Assertions.assertEquals("GY__G", result);
@@ -25,16 +25,16 @@ public class WordleTest {
 
 
     @Test
-    public void TwoFailGameTest3() {
+    public void 輸入字串無重複字元_回傳相對應提示值() {
         Wordle wordle = new Wordle("apple");
-        String result = wordle.gameRefactor("egpia");
-        Assertions.assertEquals("Y_G_Y", result);
+        String result = wordle.gameRefactor("aopde");
+        Assertions.assertEquals("G_G_G", result);
     }
 
     @Test
-    public void FiveGameWinGameTest3() {
+    public void 遊戲限制次數內輸入正確＿贏得比賽_回應Win() {
         Wordle wordle = new Wordle("apple");
-        for(int i =0;i<5;i++) {
+        for (int i = 0; i < 5; i++) {
             String result = wordle.gameRefactor("egpia");
             Assertions.assertEquals("Y_G_Y", result);
         }
@@ -42,8 +42,9 @@ public class WordleTest {
         Assertions.assertEquals("Win", r);
     }
 
+
     @Test
-    public void FailGameTest3() {
+    public void 遊戲限制次數內_輸入最後一次還是錯誤_比賽失敗_回應Fail() {
         Wordle wordle = new Wordle("apple");
         String result;
         for (int i = 0; i < 5; i++) {
