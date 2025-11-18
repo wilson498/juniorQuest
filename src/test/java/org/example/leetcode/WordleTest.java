@@ -33,8 +33,12 @@ ans = "apple"
     res="GGGGG"
     status = WIN
 8. 達次數限制依然猜錯
-   status = FAIL
+    input = "aggie"
+    res = "G___G"
+    status = FAIL
 9. 超出次數限制再次輸入 ?
+    input = "aggie"
+    res = "G___G"
    status = OVERED
  */
 @SpringBootTest
