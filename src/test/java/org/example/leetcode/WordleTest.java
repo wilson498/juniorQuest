@@ -48,41 +48,37 @@ public class WordleTest {
     @Test
     public void 輸入與答案相同() {
         Wordle wordle = createWordle("apple");
-        WordleGameResponse response = wordle.game("apple");
-        Assertions.assertEquals("GGGGG", response.getTips());
-        Assertions.assertEquals(GameStatus.WIN, response.getGameStatus());
+        assertionsGameTipsAndStatus(wordle, "apple", "GGGGG", GameStatus.WIN);
+    }
+
+    private void assertionsGameTipsAndStatus(Wordle wordle, String apple, String GGGGG, GameStatus win) {
+        WordleGameResponse response = wordle.game(apple);
+        Assertions.assertEquals(GGGGG, response.getTips());
+        Assertions.assertEquals(win, response.getGameStatus());
     }
 
     @Test
     public void 輸入字母有正確且位置正確() {
         Wordle wordle = createWordle("apple");
-        WordleGameResponse response = wordle.game("bspir");
-        Assertions.assertEquals("__G__", response.getTips());
-        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
+        assertionsGameTipsAndStatus(wordle, "bspir", "__G__", GameStatus.WARNING);
     }
 
     @Test
     public void 輸入字母有正確但位置不正確() {
         Wordle wordle = createWordle("apple");
-        WordleGameResponse response = wordle.game("blirw");
-        Assertions.assertEquals("_Y___", response.getTips());
-        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
+        assertionsGameTipsAndStatus(wordle, "blirw", "_Y___", GameStatus.WARNING);
     }
 
     @Test
     public void 輸入字母有正確但重複輸入_答案字母數量都為1() {
         Wordle wordle = createWordle("apple");
-        WordleGameResponse response = wordle.game("xllee");
-        Assertions.assertEquals("_Y__G", response.getTips());
-        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
+        assertionsGameTipsAndStatus(wordle, "xllee", "_Y__G", GameStatus.WARNING);
     }
 
     @Test
     public void 輸入字母有正確但重複輸入_答案字母數量為多() {
         Wordle wordle = createWordle("apple");
-        WordleGameResponse response = wordle.game("swrpp");
-        Assertions.assertEquals("___YY", response.getTips());
-        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
+        assertionsGameTipsAndStatus(wordle, "swrpp", "___YY", GameStatus.WARNING);
     }
 
     @Test
