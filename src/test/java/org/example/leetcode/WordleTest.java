@@ -46,15 +46,15 @@ public class WordleTest {
     }
 
     @Test
-    public void 輸入與答案相同() {
+    public void input_same_ans() {
         Wordle wordle = createWordle("apple");
         WordleGameResponse response = wordle.game("apple");
         assertionsGameStatusAndTips(response, "GGGGG", GameStatus.WIN);
     }
 
-    private void assertionsGameStatusAndTips(WordleGameResponse response, String tips, GameStatus gameStatus) {
-        Assertions.assertEquals(tips, response.getTips());
-        Assertions.assertEquals(gameStatus, response.getGameStatus());
+    private void assertionsGameStatusAndTips(WordleGameResponse response, String verifyTips, GameStatus virifyGameStatus) {
+        Assertions.assertEquals(verifyTips, response.getTips());
+        Assertions.assertEquals(virifyGameStatus, response.getGameStatus());
     }
 
     @Test
