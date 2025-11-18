@@ -41,7 +41,7 @@ ans = "apple"
 public class WordleTest {
 
     private Wordle createWordle(String answer) {
-        
+
         return new Wordle(answer);
     }
 
@@ -88,54 +88,40 @@ public class WordleTest {
     @Test
     public void 輸入字母無正確() {
         Wordle wordle = createWordle("apple");
-        WordleGameResponse response = wordle.game("blirw");
-        String result = wordle.game("rrrrr").getTips();
-        Assertions.assertEquals("_____", result);
-        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
-
+        WordleGameResponse response = wordle.game("rrrrr");
+        assertionsGameStatusAndTips(response, "_____", GameStatus.WARNING);
     }
 
     @Test
     public void 次數限制內猜對() {
         Wordle wordle = createWordle("apple");
-        for (int i = 0; i < 5; i++) {
-            String result = wordle.game("egpia").getTips();
-            Assertions.assertEquals("Y_G_Y", result);
-        }
+        executionNumber(wordle, "egpia", 5);
         WordleGameResponse response = wordle.game("apple");
-        GameStatus result = response.getGameStatus();
-        Assertions.assertEquals(GameStatus.WIN, result);
+        assertionsGameStatusAndTips(response, "GGGGG", GameStatus.WIN);
     }
 
 
     @Test
     public void 達次數限制依然猜錯() {
         Wordle wordle = createWordle("apple");
-        String temp;
-        for (int i = 0; i < 5; i++) {
-            temp = wordle.game("aggie").getTips();
-            Assertions.assertEquals("G___G", temp);
-        }
+        executionNumber(wordle, "aggie", 5);
         WordleGameResponse response = wordle.game("aggie");
-        Assertions.assertEquals(6, response.getCount());
-        GameStatus result = response.getGameStatus();
-        Assertions.assertEquals(GameStatus.Fail, result);
-
+        assertionsGameStatusAndTips(response, "G___G", GameStatus.Fail);
     }
 
     @Test
     public void 超出次數限制再次輸入() {
         Wordle wordle = createWordle("apple");
-        String temp;
-        for (int i = 0; i < 6; i++) {
-            temp = wordle.game("aggie").getTips();
-            Assertions.assertEquals("G___G", temp);
-        }
+        executionNumber(wordle, "aggie", 6);
         WordleGameResponse response = wordle.game("aggie");
-        Assertions.assertEquals(7, response.getCount());
-        GameStatus result = response.getGameStatus();
-        Assertions.assertEquals(GameStatus.OVERED, result);
+        assertionsGameStatusAndTips(response, "G___G", GameStatus.OVERED);
 
+    }
+
+    private void executionNumber(Wordle wordle, String aggie, int index) {
+        for (int i = 0; i < index; i++) {
+            wordle.game(aggie);
+        }
     }
 
 }
