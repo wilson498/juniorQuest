@@ -92,7 +92,7 @@ public class Wordle {
             }
             char c = input.charAt(i);
             LetterData ld = wordLetterMap.get(c);
-            if (ld != null && !ld.contains(i)) {
+            if (ld != null) {
                 chars[i] = 'Y';
                 removeLetterData(c);
             }
