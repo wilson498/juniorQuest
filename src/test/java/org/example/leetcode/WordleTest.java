@@ -99,7 +99,7 @@ public class WordleTest {
     @Test
     public void 次數限制內猜對() {
         Wordle wordle = createWordle("apple");
-        executionNumber(wordle, "egpia", 5);
+        executionCount(wordle, "egpia", 5);
         WordleGameResponse response = wordle.game("apple");
         assertionsGameStatusAndTips(response, "GGGGG", GameStatus.WIN);
     }
@@ -108,7 +108,7 @@ public class WordleTest {
     @Test
     public void 達次數限制依然猜錯() {
         Wordle wordle = createWordle("apple");
-        executionNumber(wordle, "aggie", 5);
+        executionCount(wordle, "aggie", 5);
         WordleGameResponse response = wordle.game("aggie");
         assertionsGameStatusAndTips(response, "G___G", GameStatus.Fail);
     }
@@ -116,15 +116,15 @@ public class WordleTest {
     @Test
     public void 超出次數限制再次輸入() {
         Wordle wordle = createWordle("apple");
-        executionNumber(wordle, "aggie", 6);
+        executionCount(wordle, "aggie", 6);
         WordleGameResponse response = wordle.game("aggie");
         assertionsGameStatusAndTips(response, "G___G", GameStatus.OVERED);
 
     }
 
-    private void executionNumber(Wordle wordle, String aggie, int index) {
-        for (int i = 0; i < index; i++) {
-            wordle.game(aggie);
+    private void executionCount(Wordle wordle, String input, int count) {
+        for (int i = 0; i < count; i++) {
+            wordle.game(input);
         }
     }
 
