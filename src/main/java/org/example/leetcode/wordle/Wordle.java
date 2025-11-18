@@ -70,14 +70,8 @@ public class Wordle {
         }
     }
 
-    private String createTips(String input) {
-        initWordLetterMap();
-        char[] chars = checkGreenAndYellow(input);
-        checkFinalYellowLetter(input, chars);
-        return new String(chars);
-    }
 
-    private char[] checkGreenAndYellow(String input) {
+    private char[] createGreenAndYellowChars(String input) {
         char[] chars = new char[ans.length()];
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
@@ -85,12 +79,9 @@ public class Wordle {
             if (ld != null) {
                 if (ld.contains(i)) {
                     chars[i] = 'G';
-                    ld.removeOne();
+                    removeLetterData(ld, c);
                 } else {
                     chars[i] = 'Y';
-                }
-                if (ld.getListSize() == 0) {
-                    wordLetterMap.remove(c);
                 }
             } else {
                 chars[i] = '_';
@@ -99,22 +90,33 @@ public class Wordle {
         return chars;
     }
 
-    private void checkFinalYellowLetter(String input, char[] chars) {
+    private void checkFinalYellowChars(String input, char[] chars) {
         for (int i = 0; i < chars.length; i++) {
-            char c = input.charAt(i);
             if (chars[i] == 'Y') {
+                char c = input.charAt(i);
                 LetterData ld = wordLetterMap.get(c);
                 if (ld != null) {
-                    chars[i] = 'Y';
-                    ld.removeOne();
-                    if (ld.getListSize() == 0) {
-                        wordLetterMap.remove(c);
-                    }
+                    removeLetterData(ld, c);
                 } else {
                     chars[i] = '_';
                 }
             }
         }
+    }
+
+    private void removeLetterData(LetterData ld, char c) {
+        ld.removeOne();
+        if (ld.getListSize() == 0) {
+            wordLetterMap.remove(c);
+        }
+    }
+
+
+    private String createTips(String input) {
+        initWordLetterMap();
+        char[] chars = createGreenAndYellowChars(input);
+        checkFinalYellowChars(input, chars);
+        return new String(chars);
     }
 
     public WordleGameResponse game(String input) {
