@@ -40,9 +40,9 @@ ans = "apple"
 @SpringBootTest
 public class WordleTest {
 
-    private Wordle createWordle(String input) {
+    private Wordle createWordle(String answer) {
         
-        return new Wordle(input);
+        return new Wordle(answer);
     }
 
     @Test
