@@ -65,7 +65,7 @@ public class Wordle {
         } else if (curCount == Wordle.MAX_COUNT) {
             return GameStatus.Fail;
         } else {
-            return GameStatus.WARING;
+            return GameStatus.WARNING;
         }
     }
 

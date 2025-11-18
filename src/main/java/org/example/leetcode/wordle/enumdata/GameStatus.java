@@ -2,7 +2,7 @@ package org.example.leetcode.wordle.enumdata;
 
 
 public enum GameStatus {
-    WARING(0, "錯誤"),
+    WARNING(0, "錯誤"),
     WIN(1, "您贏了"),
     Fail(2, "您失敗了"),
     OVERED(3,"已結束" );;
