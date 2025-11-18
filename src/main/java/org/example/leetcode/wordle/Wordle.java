@@ -47,9 +47,9 @@ public class Wordle {
         wordLetterMap.clear();
         for (int i = 0; i < ans.length(); i++) {
             Character ch = ans.charAt(i);
-            LetterData ld = wordLetterMap.getOrDefault(ch, new LetterData());
-            ld.addIndex(i);
-            wordLetterMap.put(ch, ld);
+            LetterData letter = wordLetterMap.getOrDefault(ch, new LetterData());
+            letter.addIndex(i);
+            wordLetterMap.put(ch, letter);
         }
     }
 
@@ -76,8 +76,8 @@ public class Wordle {
         for (int i = 0; i < input.length(); i++) {
             chars[i] = '_';
             char c = input.charAt(i);
-            LetterData ld = wordLetterMap.get(c);
-            if (ld != null && ld.contains(i)) {
+            LetterData letter = wordLetterMap.get(c);
+            if (letter != null && letter.contains(i)) {
                 chars[i] = 'G';
                 removeLetterData(c);
             }
@@ -91,8 +91,8 @@ public class Wordle {
                 continue;
             }
             char c = input.charAt(i);
-            LetterData ld = wordLetterMap.get(c);
-            if (ld != null) {
+            LetterData letter = wordLetterMap.get(c);
+            if (letter != null) {
                 chars[i] = 'Y';
                 removeLetterData(c);
             }
@@ -102,12 +102,12 @@ public class Wordle {
     }
 
     private void removeLetterData(char c) {
-        LetterData ld = wordLetterMap.get(c);
-        if (ld == null) {
+        LetterData letter = wordLetterMap.get(c);
+        if (letter == null) {
             return;
         }
-        ld.removeOne();
-        if (ld.getListSize() == 0) {
+        letter.removeOne();
+        if (letter.getListSize() == 0) {
             wordLetterMap.remove(c);
         }
     }
