@@ -74,14 +74,15 @@ public class WordleTest {
         Wordle wordle = createWordle("apple");
         WordleGameResponse response = wordle.game("xllee");
         Assertions.assertEquals("_Y__G", response.getTips());
+        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
     }
 
     @Test
     public void 輸入字母有正確但重複輸入_答案字母數量為多() {
         Wordle wordle = createWordle("apple");
-        WordleGameResponse response = wordle.game("blirw");
-        String result = wordle.game("swrpp").getTips();
-        Assertions.assertEquals("___YY", result);
+        WordleGameResponse response = wordle.game("swrpp");
+        Assertions.assertEquals("___YY", response.getTips());
+        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
     }
 
     @Test
@@ -90,6 +91,8 @@ public class WordleTest {
         WordleGameResponse response = wordle.game("blirw");
         String result = wordle.game("rrrrr").getTips();
         Assertions.assertEquals("_____", result);
+        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
+
     }
 
     @Test
