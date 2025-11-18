@@ -85,7 +85,7 @@ public class Wordle {
         return chars;
     }
 
-    private void checkFinalYellowChars(String input, char[] chars) {
+    private char[] checkFinalYellowChars(String input, char[] chars) {
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] == 'G') {
                 continue;
@@ -98,6 +98,7 @@ public class Wordle {
             }
 
         }
+        return chars;
     }
 
     private void removeLetterData(char c) {
@@ -115,8 +116,9 @@ public class Wordle {
     private String createTips(String input) {
         initWordLetterMap();
         char[] chars = createGreenChars(input);
-        checkFinalYellowChars(input, chars);
-        return new String(chars);
+        return new String(
+                checkFinalYellowChars(input, chars)
+        );
     }
 
     public WordleGameResponse game(String input) {
