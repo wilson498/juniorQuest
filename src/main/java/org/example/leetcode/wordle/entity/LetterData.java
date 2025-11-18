@@ -14,11 +14,7 @@ public class LetterData {
     }
 
     public boolean contains(int i) {
-        if (indexList.contains(i)) {
-            return true;
-        } else {
-            return false;
-        }
+        return indexList.contains(i);
     }
 
     public void removeOne() {

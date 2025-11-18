@@ -79,7 +79,7 @@ public class Wordle {
             LetterData ld = wordLetterMap.get(c);
             if (ld != null && ld.contains(i)) {
                 chars[i] = 'G';
-                removeLetterData(ld, c);
+                removeLetterData(c);
             }
         }
         return chars;
@@ -92,15 +92,19 @@ public class Wordle {
             }
             char c = input.charAt(i);
             LetterData ld = wordLetterMap.get(c);
-            if (ld != null) {
+            if (ld != null && !ld.contains(i)) {
                 chars[i] = 'Y';
-                removeLetterData(ld, c);
+                removeLetterData(c);
             }
 
         }
     }
 
-    private void removeLetterData(LetterData ld, char c) {
+    private void removeLetterData(char c) {
+        LetterData ld = wordLetterMap.get(c);
+        if (ld == null) {
+            return;
+        }
         ld.removeOne();
         if (ld.getListSize() == 0) {
             wordLetterMap.remove(c);
