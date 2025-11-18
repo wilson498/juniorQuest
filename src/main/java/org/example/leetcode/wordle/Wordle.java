@@ -71,20 +71,15 @@ public class Wordle {
     }
 
 
-    private char[] createGreenAndYellowChars(String input) {
+    private char[] createGreenChars(String input) {
         char[] chars = new char[ans.length()];
         for (int i = 0; i < input.length(); i++) {
+            chars[i] = '_';
             char c = input.charAt(i);
             LetterData ld = wordLetterMap.get(c);
-            if (ld != null) {
-                if (ld.contains(i)) {
-                    chars[i] = 'G';
-                    removeLetterData(ld, c);
-                } else {
-                    chars[i] = 'Y';
-                }
-            } else {
-                chars[i] = '_';
+            if (ld != null && ld.contains(i)) {
+                chars[i] = 'G';
+                removeLetterData(ld, c);
             }
         }
         return chars;
@@ -92,15 +87,16 @@ public class Wordle {
 
     private void checkFinalYellowChars(String input, char[] chars) {
         for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == 'Y') {
-                char c = input.charAt(i);
-                LetterData ld = wordLetterMap.get(c);
-                if (ld != null) {
-                    removeLetterData(ld, c);
-                } else {
-                    chars[i] = '_';
-                }
+            if (chars[i] == 'G') {
+                continue;
             }
+            char c = input.charAt(i);
+            LetterData ld = wordLetterMap.get(c);
+            if (ld != null) {
+                chars[i] = 'Y';
+                removeLetterData(ld, c);
+            }
+
         }
     }
 
@@ -114,7 +110,7 @@ public class Wordle {
 
     private String createTips(String input) {
         initWordLetterMap();
-        char[] chars = createGreenAndYellowChars(input);
+        char[] chars = createGreenChars(input);
         checkFinalYellowChars(input, chars);
         return new String(chars);
     }
