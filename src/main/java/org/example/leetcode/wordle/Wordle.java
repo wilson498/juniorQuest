@@ -27,6 +27,7 @@ import org.example.leetcode.wordle.enumdata.GameStatus;
 import org.example.leetcode.wordle.response.WordleGameResponse;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @Slf4j
@@ -38,7 +39,7 @@ public class Wordle {
     private int curCount;
 
     public Wordle(String ans) {
-        this.ans = ans;
+        this.ans = ans.toLowerCase();
         this.wordLetterMap = new HashMap<>();
         curCount = 0;
     }
@@ -123,9 +124,10 @@ public class Wordle {
 
     public WordleGameResponse game(String input) {
         addCount();
+        String guess = input.toLowerCase();
         return new WordleGameResponse(
-                createTips(input),
-                getGameStatus(input),
+                createTips(guess),
+                getGameStatus(guess),
                 curCount
         );
     }
