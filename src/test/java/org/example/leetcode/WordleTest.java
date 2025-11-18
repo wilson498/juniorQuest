@@ -110,7 +110,7 @@ public class WordleTest {
         Wordle wordle = createWordle("apple");
         executionCount(wordle, "aggie", 5);
         WordleGameResponse response = wordle.game("aggie");
-        assertionsGameStatusAndTips(response, "G___G", GameStatus.Fail);
+        assertionsGameStatusAndTips(response, "G___G", GameStatus.FAIL);
     }
 
     @Test

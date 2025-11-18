@@ -27,7 +27,6 @@ import org.example.leetcode.wordle.enumdata.GameStatus;
 import org.example.leetcode.wordle.response.WordleGameResponse;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 @Slf4j
@@ -65,7 +64,7 @@ public class Wordle {
             curCount = Wordle.MAX_COUNT;
             return GameStatus.WIN;
         } else if (curCount == Wordle.MAX_COUNT) {
-            return GameStatus.Fail;
+            return GameStatus.FAIL;
         } else {
             return GameStatus.WARNING;
         }
