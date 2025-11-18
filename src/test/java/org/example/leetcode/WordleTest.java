@@ -72,14 +72,14 @@ public class WordleTest {
     }
 
     @Test
-    public void 輸入字母有正確但重複輸入_答案字母數量都為1() {
+    public void 輸入字母正確位置正確與位置不正確且都有重複字母_答案字母數量只有1個() {
         Wordle wordle = createWordle("apple");
         WordleGameResponse response = wordle.game("xllee");
         assertionsGameStatusAndTips(response, "_Y__G", GameStatus.WARNING);
     }
 
     @Test
-    public void 輸入字母有正確但重複輸入_答案字母數量為多() {
+    public void 輸入字母正確位置不正確且有重複字母_答案字母數量為多() {
         Wordle wordle = createWordle("apple");
         WordleGameResponse response = wordle.game("swrpp");
         assertionsGameStatusAndTips(response, "___YY", GameStatus.WARNING);
