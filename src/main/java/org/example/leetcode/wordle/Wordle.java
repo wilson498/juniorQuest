@@ -61,6 +61,7 @@ public class Wordle {
         if (curCount > Wordle.MAX_COUNT) {
             return GameStatus.OVERED;
         } else if (ans.equals(input)) {
+            curCount = Wordle.MAX_COUNT;
             return GameStatus.WIN;
         } else if (curCount == Wordle.MAX_COUNT) {
             return GameStatus.Fail;
