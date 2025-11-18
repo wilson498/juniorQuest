@@ -48,37 +48,45 @@ public class WordleTest {
     @Test
     public void 輸入與答案相同() {
         Wordle wordle = createWordle("apple");
-        assertionsGameTipsAndStatus(wordle, "apple", "GGGGG", GameStatus.WIN);
+        WordleGameResponse response = wordle.game("apple");
+        assertionsGameStatusAndTips(response);
     }
 
-    private void assertionsGameTipsAndStatus(Wordle wordle, String apple, String GGGGG, GameStatus win) {
-        WordleGameResponse response = wordle.game(apple);
-        Assertions.assertEquals(GGGGG, response.getTips());
-        Assertions.assertEquals(win, response.getGameStatus());
+    private void assertionsGameStatusAndTips(WordleGameResponse response) {
+        Assertions.assertEquals("GGGGG", response.getTips());
+        Assertions.assertEquals(GameStatus.WIN, response.getGameStatus());
     }
 
     @Test
     public void 輸入字母有正確且位置正確() {
         Wordle wordle = createWordle("apple");
-        assertionsGameTipsAndStatus(wordle, "bspir", "__G__", GameStatus.WARNING);
+        WordleGameResponse response = wordle.game("bspir");
+        Assertions.assertEquals("__G__", response.getTips());
+        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
     }
 
     @Test
     public void 輸入字母有正確但位置不正確() {
         Wordle wordle = createWordle("apple");
-        assertionsGameTipsAndStatus(wordle, "blirw", "_Y___", GameStatus.WARNING);
+        WordleGameResponse response = wordle.game("blirw");
+        Assertions.assertEquals("_Y___", response.getTips());
+        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
     }
 
     @Test
     public void 輸入字母有正確但重複輸入_答案字母數量都為1() {
         Wordle wordle = createWordle("apple");
-        assertionsGameTipsAndStatus(wordle, "xllee", "_Y__G", GameStatus.WARNING);
+        WordleGameResponse response = wordle.game("xllee");
+        Assertions.assertEquals("_Y__G", response.getTips());
+        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
     }
 
     @Test
     public void 輸入字母有正確但重複輸入_答案字母數量為多() {
         Wordle wordle = createWordle("apple");
-        assertionsGameTipsAndStatus(wordle, "swrpp", "___YY", GameStatus.WARNING);
+        WordleGameResponse response = wordle.game("swrpp");
+        Assertions.assertEquals("___YY", response.getTips());
+        Assertions.assertEquals(GameStatus.WARNING, response.getGameStatus());
     }
 
     @Test
