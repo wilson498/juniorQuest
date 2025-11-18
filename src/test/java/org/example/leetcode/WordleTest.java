@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+
 /*
 ans = "apple"
 
@@ -57,7 +59,7 @@ public class WordleTest {
     }
 
     private void assertionsGameStatusAndTips(WordleGameResponse response, String verifyTips, GameStatus virifyGameStatus) {
-        Assertions.assertEquals(verifyTips, response.getTips());
+        Assertions.assertArrayEquals(verifyTips.toCharArray(), response.getTips());
         Assertions.assertEquals(virifyGameStatus, response.getGameStatus());
     }
 

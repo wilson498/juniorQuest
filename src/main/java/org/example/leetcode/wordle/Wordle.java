@@ -113,12 +113,11 @@ public class Wordle {
     }
 
 
-    private String createTips(String input) {
+    private char[] createTips(String input) {
         initWordLetterMap();
         char[] chars = createGreenChars(input);
-        return new String(
-                checkFinalYellowChars(input, chars)
-        );
+        return
+                checkFinalYellowChars(input, chars);
     }
 
     public WordleGameResponse game(String input) {
