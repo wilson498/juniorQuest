@@ -17,7 +17,7 @@ public class LetterData {
         return indexList.contains(i);
     }
 
-    public void removeOne() {
+    public void removeAnyOneLetter() {
         indexList.remove(0);
     }
 

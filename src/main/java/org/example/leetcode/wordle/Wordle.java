@@ -31,35 +31,35 @@ import org.example.leetcode.wordle.response.WordleGameResponse;
 public class Wordle {
     public final static int MAX_COUNT = 6;
 
-    private final String ans;
+    private final String answer;
     private final LetterDataMap letterDataMap;
-    private int curCount;
+    private int currentCount;
 
-    public Wordle(String ans) {
-        this.ans = ans.toLowerCase();
+    public Wordle(String answer) {
+        this.answer = answer.toLowerCase();
         this.letterDataMap = new LetterDataMap();
-        curCount = 0;
+        currentCount = 0;
     }
 
     private void initWordLetterMap() {
         letterDataMap.clear();
-        for (int index = 0; index < ans.length(); index++) {
-            Character ch = ans.charAt(index);
+        for (int index = 0; index < answer.length(); index++) {
+            Character ch = answer.charAt(index);
             letterDataMap.addIndexToList(ch, index);
         }
     }
 
-    private void addCount() {
-        curCount++;
+    private void addCurrentCount() {
+        currentCount++;
     }
 
     private GameStatus getGameStatus(String input) {
-        if (curCount > Wordle.MAX_COUNT) {
+        if (currentCount > Wordle.MAX_COUNT) {
             return GameStatus.OVERED;
-        } else if (ans.equals(input)) {
-            curCount = Wordle.MAX_COUNT;
+        } else if (answer.equals(input)) {
+            currentCount = Wordle.MAX_COUNT;
             return GameStatus.WIN;
-        } else if (curCount == Wordle.MAX_COUNT) {
+        } else if (currentCount == Wordle.MAX_COUNT) {
             return GameStatus.FAIL;
         } else {
             return GameStatus.WARNING;
@@ -68,21 +68,16 @@ public class Wordle {
 
 
     private char[] createGreenChars(String input) {
-        char[] chars = new char[ans.length()];
+        char[] chars = new char[answer.length()];
         for (int index = 0; index < input.length(); index++) {
             chars[index] = '_';
-            char ch = input.charAt(index);
-            targetStatusReplaceChars(
-                    LetterStatus.CORRECT,
-                    ch,
-                    index,
-                    chars,
-                    'G');
+            targetStatusReplaceChars(chars, input, index, LetterStatus.CORRECT, 'G');
         }
         return chars;
     }
 
-    private void targetStatusReplaceChars(LetterStatus targetStatus, char ch, int index, char[] chars, char replaceChar) {
+    private void targetStatusReplaceChars(char[] chars, String input, int index, LetterStatus targetStatus, char replaceChar) {
+        char ch = input.charAt(index);
         if (targetStatus == letterDataMap.checkLetterStatus(ch, index)) {
             chars[index] = replaceChar;
             letterDataMap.removeLetterData(ch);
@@ -94,8 +89,7 @@ public class Wordle {
             if (chars[index] == 'G') {
                 continue;
             }
-            char ch = input.charAt(index);
-            targetStatusReplaceChars(LetterStatus.EXIST, ch, index, chars, 'Y');
+            targetStatusReplaceChars(chars, input, index, LetterStatus.EXIST, 'Y');
         }
         return chars;
     }
@@ -107,8 +101,8 @@ public class Wordle {
     }
 
     public WordleGameResponse game(String input) {
-        addCount();
+        addCurrentCount();
         String guess = input.toLowerCase();
-        return new WordleGameResponse(createTips(guess), getGameStatus(guess), curCount);
+        return new WordleGameResponse(createTips(guess), getGameStatus(guess), currentCount);
     }
 }

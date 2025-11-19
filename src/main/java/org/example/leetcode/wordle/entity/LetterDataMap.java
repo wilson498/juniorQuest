@@ -22,7 +22,9 @@ public class LetterDataMap {
         if (letter == null) {
             return;
         }
-        letter.removeOne();
+        if (letter.getListSize() > 0) {
+            letter.removeAnyOneLetter();
+        }
         if (letter.getListSize() == 0) {
             letterMap.remove(c);
         }
@@ -41,7 +43,7 @@ public class LetterDataMap {
         if (letter == null) {
             return LetterStatus.NOT_EXIST;
         }
-        if(letter.contains(index)) {
+        if (letter.contains(index)) {
             return LetterStatus.CORRECT;
         }
         return LetterStatus.EXIST;
