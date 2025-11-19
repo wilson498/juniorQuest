@@ -71,15 +71,18 @@ public class Wordle {
         char[] chars = new char[answer.length()];
         for (int index = 0; index < input.length(); index++) {
             chars[index] = '_';
-            replaceCharForTargetStatus(chars, input, index, LetterStatus.CORRECT, 'G');
+            replaceCharForTargetStatus(chars,
+                    input,
+                    index,
+                    LetterStatus.CORRECT, 'G');
         }
         return chars;
     }
 
-    private void replaceCharForTargetStatus(char[] chars, String input, int index, LetterStatus targetStatus, char replaceChar) {
-        char ch = input.charAt(index);
-        if (targetStatus == letterDataMap.checkLetterStatus(ch, index)) {
-            chars[index] = replaceChar;
+    private void replaceCharForTargetStatus(char[] chars, String input, int replaceIndex, LetterStatus targetStatus, char replaceChar) {
+        char ch = input.charAt(replaceIndex);
+        if (targetStatus == letterDataMap.checkLetterStatus(ch, replaceIndex)) {
+            chars[replaceIndex] = replaceChar;
             letterDataMap.removeLetterData(ch);
         }
     }
