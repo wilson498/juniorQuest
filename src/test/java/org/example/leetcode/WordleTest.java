@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
-
 /*
 ans = "apple"
 
@@ -101,7 +99,7 @@ public class WordleTest {
     @Test
     public void 次數限制內猜對() {
         Wordle wordle = createWordle("apple");
-        executionCount(wordle, "egpia", 5);
+        executionCount(wordle, 5);
         WordleGameResponse response = wordle.game("apple");
         assertionsGameStatusAndTips(response, "GGGGG", GameStatus.WIN);
     }
@@ -110,7 +108,7 @@ public class WordleTest {
     @Test
     public void 達次數限制依然猜錯() {
         Wordle wordle = createWordle("apple");
-        executionCount(wordle, "aggie", 5);
+        executionCount(wordle, 5);
         WordleGameResponse response = wordle.game("aggie");
         assertionsGameStatusAndTips(response, "G___G", GameStatus.FAIL);
     }
@@ -118,15 +116,15 @@ public class WordleTest {
     @Test
     public void 超出次數限制再次輸入() {
         Wordle wordle = createWordle("apple");
-        executionCount(wordle, "aggie", 6);
+        executionCount(wordle, 6);
         WordleGameResponse response = wordle.game("aggie");
         assertionsGameStatusAndTips(response, "G___G", GameStatus.OVERED);
 
     }
 
-    private void executionCount(Wordle wordle, String input, int count) {
+    private void executionCount(Wordle wordle, int count) {
         for (int i = 0; i < count; i++) {
-            wordle.game(input);
+            wordle.game("ttttt");
         }
     }
 
