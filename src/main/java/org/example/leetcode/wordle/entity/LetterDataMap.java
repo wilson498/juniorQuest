@@ -30,10 +30,6 @@ public class LetterDataMap {
         }
     }
 
-    public LetterData getLetterData(char c) {
-        return letterMap.getOrDefault(c, null);
-    }
-
     public void clear() {
         letterMap.clear();
     }
