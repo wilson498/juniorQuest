@@ -21,13 +21,11 @@ Y：字母存在於答案中，但位置錯誤
 結果：G Y  _ _ G
  */
 
-import lombok.extern.slf4j.Slf4j;
 import org.example.leetcode.wordle.entity.LetterDataMap;
 import org.example.leetcode.wordle.enumdata.GameStatus;
 import org.example.leetcode.wordle.enumdata.LetterStatus;
 import org.example.leetcode.wordle.response.WordleGameResponse;
 
-@Slf4j
 public class Wordle {
     public final static int MAX_COUNT = 6;
 

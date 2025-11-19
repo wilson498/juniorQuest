@@ -1,13 +1,11 @@
 package org.example.leetcode.wordle.entity;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 public class LetterData {
-    private List<Integer> indexList = new ArrayList<>();
+
+    private final List<Integer> indexList = new ArrayList<>();
 
     public void addIndex(int i) {
         indexList.add(i);

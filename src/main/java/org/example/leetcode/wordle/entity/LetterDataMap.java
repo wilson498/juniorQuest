@@ -1,12 +1,10 @@
 package org.example.leetcode.wordle.entity;
 
-import lombok.Data;
 import org.example.leetcode.wordle.enumdata.LetterStatus;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
 public class LetterDataMap {
 
     private final Map<Character, LetterData> letterMap = new HashMap<>();
