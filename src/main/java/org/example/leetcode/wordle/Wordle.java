@@ -21,7 +21,7 @@ Y：字母存在於答案中，但位置錯誤
 結果：G Y  _ _ G
  */
 
-import org.example.leetcode.wordle.entity.LetterDataMap;
+import org.example.leetcode.wordle.entity.LetterDataProcess;
 import org.example.leetcode.wordle.enumdata.GameStatus;
 import org.example.leetcode.wordle.enumdata.LetterStatus;
 import org.example.leetcode.wordle.response.WordleGameResponse;
@@ -30,21 +30,13 @@ public class Wordle {
     public final static int MAX_COUNT = 6;
 
     private final String answer;
-    private final LetterDataMap letterDataMap;
+    private final LetterDataProcess letterDataProcess;
     private int currentCount;
 
     public Wordle(String answer) {
         this.answer = answer.toLowerCase();
-        this.letterDataMap = new LetterDataMap();
+        this.letterDataProcess = new LetterDataProcess();
         currentCount = 0;
-    }
-
-    private void initWordLetterMap() {
-        letterDataMap.clear();
-        for (int index = 0; index < answer.length(); index++) {
-            Character ch = answer.charAt(index);
-            letterDataMap.addIndexToList(ch, index);
-        }
     }
 
     private void addCurrentCount() {
@@ -79,9 +71,9 @@ public class Wordle {
 
     private void replaceCharForTargetStatus(char[] chars, String input, int replaceIndex, LetterStatus targetStatus, char replaceChar) {
         char ch = input.charAt(replaceIndex);
-        if (targetStatus == letterDataMap.checkLetterStatus(ch, replaceIndex)) {
+        if (targetStatus == letterDataProcess.checkLetterStatus(ch, replaceIndex)) {
             chars[replaceIndex] = replaceChar;
-            letterDataMap.removeLetterData(ch);
+            letterDataProcess.removeLetterData(ch);
         }
     }
 
@@ -96,7 +88,8 @@ public class Wordle {
     }
 
     private char[] createTips(String input) {
-        initWordLetterMap();
+        letterDataProcess.resetMap(answer);
+
         char[] chars = createGreenChars(input);
         return checkFinalYellowChars(input, chars);
     }
