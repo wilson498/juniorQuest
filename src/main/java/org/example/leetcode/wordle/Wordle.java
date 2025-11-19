@@ -23,33 +23,29 @@ Y：字母存在於答案中，但位置錯誤
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.leetcode.wordle.entity.LetterData;
+import org.example.leetcode.wordle.entity.LetterDataMap;
 import org.example.leetcode.wordle.enumdata.GameStatus;
 import org.example.leetcode.wordle.response.WordleGameResponse;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 public class Wordle {
     public final static int MAX_COUNT = 6;
 
     private final String ans;
-    private final Map<Character, LetterData> wordLetterMap;
+    private final LetterDataMap letterDataMap;
     private int curCount;
 
     public Wordle(String ans) {
         this.ans = ans.toLowerCase();
-        this.wordLetterMap = new HashMap<>();
+        this.letterDataMap = new LetterDataMap();
         curCount = 0;
     }
 
     private void initWordLetterMap() {
-        wordLetterMap.clear();
-        for (int i = 0; i < ans.length(); i++) {
-            Character ch = ans.charAt(i);
-            LetterData letter = wordLetterMap.getOrDefault(ch, new LetterData());
-            letter.addIndex(i);
-            wordLetterMap.put(ch, letter);
+        letterDataMap.clear();
+        for (int index = 0; index < ans.length(); index++) {
+            Character ch = ans.charAt(index);
+            letterDataMap.addIndexToList(ch, index);
         }
     }
 
@@ -73,45 +69,33 @@ public class Wordle {
 
     private char[] createGreenChars(String input) {
         char[] chars = new char[ans.length()];
-        for (int i = 0; i < input.length(); i++) {
-            chars[i] = '_';
-            char c = input.charAt(i);
-            LetterData letter = wordLetterMap.get(c);
-            if (letter != null && letter.contains(i)) {
-                chars[i] = 'G';
-                removeLetterData(c);
+        for (int index = 0; index < input.length(); index++) {
+            chars[index] = '_';
+            char c = input.charAt(index);
+            LetterData letter = letterDataMap.getLetterData(c);
+            if (letter != null && letter.contains(index)) {
+                chars[index] = 'G';
+                letterDataMap.removeLetterData(c);
             }
         }
         return chars;
     }
 
     private char[] checkFinalYellowChars(String input, char[] chars) {
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == 'G') {
+        for (int index = 0; index < chars.length; index++) {
+            if (chars[index] == 'G') {
                 continue;
             }
-            char c = input.charAt(i);
-            LetterData letter = wordLetterMap.get(c);
+            char ch = input.charAt(index);
+            LetterData letter = letterDataMap.getLetterData(ch);
             if (letter != null) {
-                chars[i] = 'Y';
-                removeLetterData(c);
+                chars[index] = 'Y';
+                letterDataMap.removeLetterData(ch);
             }
 
         }
         return chars;
     }
-
-    private void removeLetterData(char c) {
-        LetterData letter = wordLetterMap.get(c);
-        if (letter == null) {
-            return;
-        }
-        letter.removeOne();
-        if (letter.getListSize() == 0) {
-            wordLetterMap.remove(c);
-        }
-    }
-
 
     private char[] createTips(String input) {
         initWordLetterMap();
