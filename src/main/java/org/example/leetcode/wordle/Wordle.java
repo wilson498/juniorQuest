@@ -35,7 +35,7 @@ public class Wordle {
 
     public Wordle(String answer) {
         this.answer = answer.toLowerCase();
-        this.letterDataProcess = new LetterDataProcess();
+        this.letterDataProcess = new LetterDataProcess(this.answer);
         currentCount = 0;
     }
 
@@ -61,20 +61,13 @@ public class Wordle {
         char[] chars = new char[answer.length()];
         for (int index = 0; index < input.length(); index++) {
             chars[index] = '_';
-            replaceCharForTargetStatus(chars,
-                    input,
-                    index,
-                    LetterStatus.CORRECT, 'G');
+            char ch = input.charAt(index);
+            if (LetterStatus.CORRECT == letterDataProcess.checkLetterStatus(ch, index)) {
+                chars[index] = 'G';
+                letterDataProcess.removeLetterData(ch);
+            }
         }
         return chars;
-    }
-
-    private void replaceCharForTargetStatus(char[] chars, String input, int replaceIndex, LetterStatus targetStatus, char replaceChar) {
-        char ch = input.charAt(replaceIndex);
-        if (targetStatus == letterDataProcess.checkLetterStatus(ch, replaceIndex)) {
-            chars[replaceIndex] = replaceChar;
-            letterDataProcess.removeLetterData(ch);
-        }
     }
 
     private char[] checkFinalYellowChars(String input, char[] chars) {
@@ -82,13 +75,17 @@ public class Wordle {
             if (chars[index] == 'G') {
                 continue;
             }
-            replaceCharForTargetStatus(chars, input, index, LetterStatus.EXIST, 'Y');
+            char ch = input.charAt(index);
+            if (LetterStatus.EXIST == letterDataProcess.checkLetterStatus(ch, index)) {
+                chars[index] = 'Y';
+                letterDataProcess.removeLetterData(ch);
+            }
         }
         return chars;
     }
 
     private char[] createTips(String input) {
-        letterDataProcess.resetMap(answer);
+        letterDataProcess.resetMap();
 
         char[] chars = createGreenChars(input);
         return checkFinalYellowChars(input, chars);

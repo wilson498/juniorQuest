@@ -8,6 +8,10 @@ import java.util.Map;
 public class LetterDataProcess {
 
     private final Map<Character, LetterData> letterMap = new HashMap<>();
+    private final String answer;
+    public LetterDataProcess(String answer) {
+        this.answer = answer;
+    }
 
     private void addIndexToList(Character ch, int index) {
         LetterData letter = letterMap.getOrDefault(ch, new LetterData());
@@ -27,11 +31,7 @@ public class LetterDataProcess {
             letterMap.remove(c);
         }
     }
-
-    public void clear() {
-        letterMap.clear();
-    }
-
+    
     public LetterStatus checkLetterStatus(char c, int index) {
         LetterData letter = letterMap.get(c);
         if (letter == null) {
@@ -43,7 +43,7 @@ public class LetterDataProcess {
         return LetterStatus.EXIST;
     }
 
-    public void resetMap(String answer) {
+    public void resetMap() {
         letterMap.clear();
         for (int index = 0; index < answer.length(); index++) {
             Character ch = answer.charAt(index);
