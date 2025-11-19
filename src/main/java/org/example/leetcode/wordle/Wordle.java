@@ -22,9 +22,9 @@ Y：字母存在於答案中，但位置錯誤
  */
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.leetcode.wordle.entity.LetterData;
 import org.example.leetcode.wordle.entity.LetterDataMap;
 import org.example.leetcode.wordle.enumdata.GameStatus;
+import org.example.leetcode.wordle.enumdata.LetterStatus;
 import org.example.leetcode.wordle.response.WordleGameResponse;
 
 @Slf4j
@@ -71,11 +71,10 @@ public class Wordle {
         char[] chars = new char[ans.length()];
         for (int index = 0; index < input.length(); index++) {
             chars[index] = '_';
-            char c = input.charAt(index);
-            LetterData letter = letterDataMap.getLetterData(c);
-            if (letter != null && letter.contains(index)) {
+            char ch = input.charAt(index);
+            if (LetterStatus.CORRECT == letterDataMap.checkLetterStatus(ch, index)) {
                 chars[index] = 'G';
-                letterDataMap.removeLetterData(c);
+                letterDataMap.removeLetterData(ch);
             }
         }
         return chars;
@@ -87,8 +86,7 @@ public class Wordle {
                 continue;
             }
             char ch = input.charAt(index);
-            LetterData letter = letterDataMap.getLetterData(ch);
-            if (letter != null) {
+            if (LetterStatus.EXIST == letterDataMap.checkLetterStatus(ch, index)) {
                 chars[index] = 'Y';
                 letterDataMap.removeLetterData(ch);
             }
@@ -100,17 +98,12 @@ public class Wordle {
     private char[] createTips(String input) {
         initWordLetterMap();
         char[] chars = createGreenChars(input);
-        return
-                checkFinalYellowChars(input, chars);
+        return checkFinalYellowChars(input, chars);
     }
 
     public WordleGameResponse game(String input) {
         addCount();
         String guess = input.toLowerCase();
-        return new WordleGameResponse(
-                createTips(guess),
-                getGameStatus(guess),
-                curCount
-        );
+        return new WordleGameResponse(createTips(guess), getGameStatus(guess), curCount);
     }
 }
