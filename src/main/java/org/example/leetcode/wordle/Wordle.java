@@ -72,12 +72,21 @@ public class Wordle {
         for (int index = 0; index < input.length(); index++) {
             chars[index] = '_';
             char ch = input.charAt(index);
-            if (LetterStatus.CORRECT == letterDataMap.checkLetterStatus(ch, index)) {
-                chars[index] = 'G';
-                letterDataMap.removeLetterData(ch);
-            }
+            targetStatusReplaceChars(
+                    LetterStatus.CORRECT,
+                    ch,
+                    index,
+                    chars,
+                    'G');
         }
         return chars;
+    }
+
+    private void targetStatusReplaceChars(LetterStatus targetStatus, char ch, int index, char[] chars, char replaceChar) {
+        if (targetStatus == letterDataMap.checkLetterStatus(ch, index)) {
+            chars[index] = replaceChar;
+            letterDataMap.removeLetterData(ch);
+        }
     }
 
     private char[] checkFinalYellowChars(String input, char[] chars) {
@@ -86,11 +95,7 @@ public class Wordle {
                 continue;
             }
             char ch = input.charAt(index);
-            if (LetterStatus.EXIST == letterDataMap.checkLetterStatus(ch, index)) {
-                chars[index] = 'Y';
-                letterDataMap.removeLetterData(ch);
-            }
-
+            targetStatusReplaceChars(LetterStatus.EXIST, ch, index, chars, 'Y');
         }
         return chars;
     }
