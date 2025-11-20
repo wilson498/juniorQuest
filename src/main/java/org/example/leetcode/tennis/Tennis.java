@@ -35,10 +35,10 @@ public class Tennis {
         if (deuce) {
             result.append("deuce");
         } else if (Math.abs(teamAScoreCount - teamBScoreCount) > 1 && gamePoint) {
-            result.append(getTeamLeader())
+            result.append( getAdvantageTeam() )
                     .append(" win");
         } else if (teamAScoreCount >= 3 && teamBScoreCount >= 3) {
-            result.append(getTeamLeader())
+            result.append( getAdvantageTeam() )
                     .append(" adv");
         } else {
             result.append(aScoreString)
@@ -48,7 +48,7 @@ public class Tennis {
         return result.toString();
     }
 
-    private String getTeamLeader() {
+    private String getAdvantageTeam() {
         return teamAScoreCount > teamBScoreCount ? "a" : "b";
     }
 
