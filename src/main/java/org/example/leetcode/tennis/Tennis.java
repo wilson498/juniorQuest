@@ -29,31 +29,28 @@ public class Tennis {
         String bScoreString = getScoreStringText(teamBScoreCount);
 
         boolean gamePoint = teamAScoreCount > 3 || teamBScoreCount > 3;
-        boolean deuce = teamAScoreCount >= 3 && teamAScoreCount == teamBScoreCount;
-        if (teamAScoreCount == teamBScoreCount && !deuce) {
-            bScoreString = "all";
-        }
-        if (Math.abs(teamAScoreCount - teamBScoreCount) > 1 && gamePoint) {
+        boolean isSameScore = teamAScoreCount == teamBScoreCount;
+        boolean deuce = teamAScoreCount >= 3 && isSameScore;
 
-            result.append(teamAScoreCount > teamBScoreCount ? "a" : "b").append(" win");
-
+        if (deuce) {
+            result.append("deuce");
+        } else if (Math.abs(teamAScoreCount - teamBScoreCount) > 1 && gamePoint) {
+            result.append(getTeamLeader()).append(" win");
+        } else if (teamAScoreCount >= 3 && teamBScoreCount >= 3) {
+            result.append(getTeamLeader()).append(" adv");
         } else {
-            if (!deuce) {
-                if (teamAScoreCount >= 3 && teamBScoreCount >= 3) {
-                    result.append(teamAScoreCount > teamBScoreCount ? "a" : "b").append(" adv");
-                } else {
-                    result.append(aScoreString);
-                    result.append("-");
-                    result.append(bScoreString);
-                }
-            } else {
-                result.append("deuce");
-            }
+            result.append(aScoreString)
+                    .append("-")
+                    .append(isSameScore ? "all" : bScoreString);
         }
         return result.toString();
     }
 
-    public String getScoreStringText(int count) {
+    private String getTeamLeader() {
+        return teamAScoreCount > teamBScoreCount ? "a" : "b";
+    }
+
+    private String getScoreStringText(int count) {
         if (count > 3) {
             return scoreList.get(3);
         }
