@@ -36,6 +36,12 @@ class TennisTest {
     }
 
     @Test
+    void thirty_zero() {
+        giveTeamScore(2, 0);
+        Assertions.assertEquals("thirty-love", tennis.getCurrentScore());
+    }
+
+    @Test
     void zero_fifteen() {
         giveTeamScore(0, 1);
         Assertions.assertEquals("love-fifteen", tennis.getCurrentScore());
