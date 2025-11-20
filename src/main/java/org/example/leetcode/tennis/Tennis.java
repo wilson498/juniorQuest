@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Tennis {
 
-    private final List<String> scoreList = List.of(
+    public static final List<String> scoreList = List.of(
             "love",
             "fifteen",
             "thirty",
@@ -28,13 +28,15 @@ public class Tennis {
         String aScoreString = getScoreStringText(teamAScoreCount);
         String bScoreString = getScoreStringText(teamBScoreCount);
 
-        boolean gamePoint = teamAScoreCount >= 3 || teamBScoreCount >= 3;
+        boolean gamePoint = teamAScoreCount > 3 || teamBScoreCount > 3;
         boolean deuce = teamAScoreCount >= 3 && teamAScoreCount == teamBScoreCount;
         if (teamAScoreCount == teamBScoreCount && !deuce) {
             bScoreString = "all";
         }
         if (Math.abs(teamAScoreCount - teamBScoreCount) > 1 && gamePoint) {
+
             result.append(teamAScoreCount > teamBScoreCount ? "a" : "b").append(" win");
+
         } else {
             if (!deuce) {
                 if (teamAScoreCount >= 3 && teamBScoreCount >= 3) {
@@ -51,7 +53,7 @@ public class Tennis {
         return result.toString();
     }
 
-    private String getScoreStringText(int count) {
+    public String getScoreStringText(int count) {
         if (count > 3) {
             return scoreList.get(3);
         }
