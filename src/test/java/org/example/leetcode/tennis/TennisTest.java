@@ -10,7 +10,7 @@ class TennisTest {
     private Tennis tennis;
 
 
-    private void giveTeamScore(int aScoreCount, int bScoreCount) {
+    private void givenTeamScore(int aScoreCount, int bScoreCount) {
         for (int i = 0; i < aScoreCount; i++) {
             tennis.teamAScore();
         }
@@ -35,156 +35,154 @@ class TennisTest {
 
     @Test
     void zero_fifteen() {
-        giveTeamScore(0, 1);
+        givenTeamScore(0, 1);
         assertionCurrentScore("love-fifteen");
     }
 
     @Test
     void zero_thirty() {
-        giveTeamScore(0, 2);
+        givenTeamScore(0, 2);
         assertionCurrentScore("love-thirty");
     }
 
     @Test
     void zero_forty() {
-        giveTeamScore(0, 3);
+        givenTeamScore(0, 3);
         assertionCurrentScore("love-forty");
     }
 
     @Test
     void fifteen_zero() {
-        giveTeamScore(1, 0);
+        givenTeamScore(1, 0);
         assertionCurrentScore("fifteen-love");
     }
 
     @Test
     void fifteen_fifteen() {
-        giveTeamScore(1, 1);
+        givenTeamScore(1, 1);
         assertionCurrentScore("fifteen-all");
     }
 
     @Test
     void fifteen_thirty() {
-        giveTeamScore(1, 2);
+        givenTeamScore(1, 2);
         assertionCurrentScore("fifteen-thirty");
     }
 
     @Test
     void fifteen_forty() {
-        giveTeamScore(1, 3);
+        givenTeamScore(1, 3);
         assertionCurrentScore("fifteen-forty");
     }
 
     @Test
     void thirty_zero() {
-        giveTeamScore(2, 0);
+        givenTeamScore(2, 0);
         assertionCurrentScore("thirty-love");
     }
 
     @Test
     void thirty_fifteen() {
-        giveTeamScore(2, 1);
+        givenTeamScore(2, 1);
         assertionCurrentScore("thirty-fifteen");
     }
 
     @Test
     void thirty_thirty() {
-        giveTeamScore(2, 2);
+        givenTeamScore(2, 2);
         assertionCurrentScore("thirty-all");
     }
 
     @Test
     void thirty_forty() {
-        giveTeamScore(2, 3);
+        givenTeamScore(2, 3);
         assertionCurrentScore("thirty-forty");
     }
     @Test
     void forty_zero() {
-        giveTeamScore(3, 0);
+        givenTeamScore(3, 0);
         assertionCurrentScore("forty-love");
     }
 
 
     @Test
     void forty_fifteen() {
-        giveTeamScore(3, 1);
+        givenTeamScore(3, 1);
         assertionCurrentScore("forty-fifteen");
     }
 
 
     @Test
     void forty_thirty() {
-        giveTeamScore(3, 2);
+        givenTeamScore(3, 2);
         assertionCurrentScore("forty-thirty");
     }
 
     @Test
     void forty_forty() {
-        giveTeamScore(3, 3);
+        givenTeamScore(3, 3);
         assertionCurrentScore("deuce");
     }
 
     @Test
     void a_win() {
-        giveTeamScore(4, 2);
+        givenTeamScore(4, 2);
         assertionCurrentScore("a win");
     }
 
     @Test
     void b_win(){
-        giveTeamScore(2, 4);
+        givenTeamScore(2, 4);
         assertionCurrentScore("b win");
     }
 
 
     @Test
     void a_advantage() {
-        giveTeamScore(4, 3);
+        givenTeamScore(4, 3);
         assertionCurrentScore("a adv");
     }
 
     @Test
     void a_advantage_before_win() {
         forty_forty();
-        giveTeamScore(2, 0);
+        givenTeamScore(2, 0);
         assertionCurrentScore("a win");
     }
     @Test
     void a_advantage_before_deuce() {
-        giveTeamScore(4, 4);
+        givenTeamScore(4, 4);
         assertionCurrentScore("deuce");
     }
 
     @Test
     void a_advantage_before_deuce_advantage() {
-        giveTeamScore(5, 4);
+        givenTeamScore(5, 4);
         assertionCurrentScore("a adv");
     }
 
-
-
     @Test
     void b_advantage() {
-        giveTeamScore(3, 4);
+        givenTeamScore(3, 4);
         assertionCurrentScore("b adv");
     }
 
 
     @Test
     void b_advantage_before_win() {
-        giveTeamScore(3, 5);
+        givenTeamScore(3, 5);
         assertionCurrentScore("b win");
     }
 
     @Test
     void b_advantage_before_deuce() {
-        giveTeamScore(4, 4);
+        givenTeamScore(4, 4);
         assertionCurrentScore("deuce");
     }
 
     @Test
     void b_advantage_before_deuce_advantage() {
-        giveTeamScore(4, 5);
+        givenTeamScore(4, 5);
         assertionCurrentScore("b adv");
     }
 
