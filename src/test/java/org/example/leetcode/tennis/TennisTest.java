@@ -142,11 +142,7 @@ class TennisTest {
         assertionCurrentScore("a win");
     }
 
-    @Test
-    void a_advantage() {
-        giveTeamScore(4, 3);
-        assertionCurrentScore("a adv");
-    }
+
 
     @Test
     void a_win() {
@@ -155,9 +151,32 @@ class TennisTest {
     }
 
     @Test
+    void a_advantage() {
+        giveTeamScore(4, 3);
+        assertionCurrentScore("a adv");
+    }
+
+    @Test
     void a_advantage_before_win() {
         giveTeamScore(5, 3);
         assertionCurrentScore("a win");
+    }
+    @Test
+    void a_advantage_before_deuce() {
+        giveTeamScore(4, 4);
+        assertionCurrentScore("deuce");
+    }
+
+    @Test
+    void a_advantage_before_deuce_advantage() {
+        giveTeamScore(5, 4);
+        assertionCurrentScore("a adv");
+    }
+
+    @Test
+    void b_win(){
+        giveTeamScore(2, 4);
+        assertionCurrentScore("b win");
     }
 
     @Test
@@ -166,10 +185,23 @@ class TennisTest {
         assertionCurrentScore("b adv");
     }
 
+
     @Test
     void b_advantage_before_win() {
         giveTeamScore(3, 5);
         assertionCurrentScore("b win");
+    }
+
+    @Test
+    void b_advantage_before_deuce() {
+        giveTeamScore(4, 4);
+        assertionCurrentScore("deuce");
+    }
+
+    @Test
+    void b_advantage_before_deuce_advantage() {
+        giveTeamScore(4, 5);
+        assertionCurrentScore("b adv");
     }
 
 }
