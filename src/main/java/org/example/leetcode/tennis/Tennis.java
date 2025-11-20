@@ -35,9 +35,13 @@ public class Tennis {
         if (deuce) {
             result.append("deuce");
         } else if (Math.abs(teamAScoreCount - teamBScoreCount) > 1 && gamePoint) {
-            result.append(getTeamLeader()).append(" win");
+            result
+                    .append(getTeamLeader())
+                    .append(" win");
         } else if (teamAScoreCount >= 3 && teamBScoreCount >= 3) {
-            result.append(getTeamLeader()).append(" adv");
+            result
+                    .append(getTeamLeader())
+                    .append(" adv");
         } else {
             result.append(aScoreString)
                     .append("-")
