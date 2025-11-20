@@ -24,166 +24,162 @@ class TennisTest {
         tennis = new Tennis();
     }
 
-    private void assertionCurrentScore(String expected) {
-        Assertions.assertEquals(expected, tennis.getCurrentScore());
-    }
-
     @Test
     void zero_zero() {
-        assertionCurrentScore("love-all");
+        givenTeamScore(0, 0);
+        Assertions.assertEquals("love-all", tennis.getCurrentScore());
     }
 
     @Test
     void zero_fifteen() {
         givenTeamScore(0, 1);
-        assertionCurrentScore("love-fifteen");
+        Assertions.assertEquals("love-fifteen", tennis.getCurrentScore());
     }
 
     @Test
     void zero_thirty() {
         givenTeamScore(0, 2);
-        assertionCurrentScore("love-thirty");
+        Assertions.assertEquals("love-thirty", tennis.getCurrentScore());
     }
 
     @Test
     void zero_forty() {
         givenTeamScore(0, 3);
-        assertionCurrentScore("love-forty");
+        Assertions.assertEquals("love-forty", tennis.getCurrentScore());
     }
 
     @Test
     void fifteen_zero() {
         givenTeamScore(1, 0);
-        assertionCurrentScore("fifteen-love");
+        Assertions.assertEquals("fifteen-love", tennis.getCurrentScore());
     }
 
     @Test
     void fifteen_fifteen() {
         givenTeamScore(1, 1);
-        assertionCurrentScore("fifteen-all");
+        Assertions.assertEquals("fifteen-all", tennis.getCurrentScore());
     }
 
     @Test
     void fifteen_thirty() {
         givenTeamScore(1, 2);
-        assertionCurrentScore("fifteen-thirty");
+        Assertions.assertEquals("fifteen-thirty", tennis.getCurrentScore());
     }
 
     @Test
     void fifteen_forty() {
         givenTeamScore(1, 3);
-        assertionCurrentScore("fifteen-forty");
+        Assertions.assertEquals("fifteen-forty", tennis.getCurrentScore());
     }
 
     @Test
     void thirty_zero() {
         givenTeamScore(2, 0);
-        assertionCurrentScore("thirty-love");
+        Assertions.assertEquals("thirty-love", tennis.getCurrentScore());
     }
 
     @Test
     void thirty_fifteen() {
         givenTeamScore(2, 1);
-        assertionCurrentScore("thirty-fifteen");
+        Assertions.assertEquals("thirty-fifteen", tennis.getCurrentScore());
     }
 
     @Test
     void thirty_thirty() {
         givenTeamScore(2, 2);
-        assertionCurrentScore("thirty-all");
+        Assertions.assertEquals("thirty-all", tennis.getCurrentScore());
     }
 
     @Test
     void thirty_forty() {
         givenTeamScore(2, 3);
-        assertionCurrentScore("thirty-forty");
+        Assertions.assertEquals("thirty-forty", tennis.getCurrentScore());
     }
     @Test
     void forty_zero() {
         givenTeamScore(3, 0);
-        assertionCurrentScore("forty-love");
+        Assertions.assertEquals("forty-love", tennis.getCurrentScore());
     }
 
 
     @Test
     void forty_fifteen() {
         givenTeamScore(3, 1);
-        assertionCurrentScore("forty-fifteen");
+        Assertions.assertEquals("forty-fifteen", tennis.getCurrentScore());
     }
 
 
     @Test
     void forty_thirty() {
         givenTeamScore(3, 2);
-        assertionCurrentScore("forty-thirty");
+        Assertions.assertEquals("forty-thirty", tennis.getCurrentScore());
     }
 
     @Test
     void forty_forty() {
         givenTeamScore(3, 3);
-        assertionCurrentScore("deuce");
+        Assertions.assertEquals("deuce", tennis.getCurrentScore());
     }
 
     @Test
     void a_win() {
         givenTeamScore(4, 2);
-        assertionCurrentScore("a win");
+        Assertions.assertEquals("a win", tennis.getCurrentScore());
     }
 
     @Test
     void b_win(){
         givenTeamScore(2, 4);
-        assertionCurrentScore("b win");
+        Assertions.assertEquals("b win", tennis.getCurrentScore());
     }
-
 
     @Test
     void a_advantage() {
         givenTeamScore(4, 3);
-        assertionCurrentScore("a adv");
+        Assertions.assertEquals("a adv", tennis.getCurrentScore());
     }
 
     @Test
     void a_advantage_before_win() {
-        forty_forty();
-        givenTeamScore(2, 0);
-        assertionCurrentScore("a win");
+        givenTeamScore(5, 3);
+        Assertions.assertEquals("a win", tennis.getCurrentScore());
     }
+
     @Test
     void a_advantage_before_deuce() {
         givenTeamScore(4, 4);
-        assertionCurrentScore("deuce");
+        Assertions.assertEquals("deuce", tennis.getCurrentScore());
     }
 
     @Test
     void a_advantage_before_deuce_advantage() {
         givenTeamScore(5, 4);
-        assertionCurrentScore("a adv");
+        Assertions.assertEquals("a adv", tennis.getCurrentScore());
     }
 
     @Test
     void b_advantage() {
         givenTeamScore(3, 4);
-        assertionCurrentScore("b adv");
+        Assertions.assertEquals("b adv", tennis.getCurrentScore());
     }
 
 
     @Test
     void b_advantage_before_win() {
         givenTeamScore(3, 5);
-        assertionCurrentScore("b win");
+        Assertions.assertEquals("b win", tennis.getCurrentScore());
     }
 
     @Test
     void b_advantage_before_deuce() {
         givenTeamScore(4, 4);
-        assertionCurrentScore("deuce");
+        Assertions.assertEquals("deuce", tennis.getCurrentScore());
     }
 
     @Test
     void b_advantage_before_deuce_advantage() {
         givenTeamScore(4, 5);
-        assertionCurrentScore("b adv");
+        Assertions.assertEquals("b adv", tennis.getCurrentScore());
     }
 
 }
