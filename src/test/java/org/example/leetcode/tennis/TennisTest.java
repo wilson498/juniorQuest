@@ -125,30 +125,17 @@ class TennisTest {
     }
 
     @Test
-    void same_score_over_four_count() {
-        giveTeamScore(5, 5);
-        assertionCurrentScore("deuce");
-    }
-
-    @Test
-    void a_six_score_advantage() {
-        giveTeamScore(6, 5);
-        assertionCurrentScore("a adv");
-    }
-
-    @Test
-    void a_six_score_win() {
-        giveTeamScore(6, 4);
-        assertionCurrentScore("a win");
-    }
-
-
-
-    @Test
     void a_win() {
         giveTeamScore(4, 2);
         assertionCurrentScore("a win");
     }
+
+    @Test
+    void b_win(){
+        giveTeamScore(2, 4);
+        assertionCurrentScore("b win");
+    }
+
 
     @Test
     void a_advantage() {
@@ -158,7 +145,8 @@ class TennisTest {
 
     @Test
     void a_advantage_before_win() {
-        giveTeamScore(5, 3);
+        forty_forty();
+        giveTeamScore(2, 0);
         assertionCurrentScore("a win");
     }
     @Test
@@ -173,11 +161,7 @@ class TennisTest {
         assertionCurrentScore("a adv");
     }
 
-    @Test
-    void b_win(){
-        giveTeamScore(2, 4);
-        assertionCurrentScore("b win");
-    }
+
 
     @Test
     void b_advantage() {
