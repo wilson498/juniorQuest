@@ -29,13 +29,11 @@ import org.example.leetcode.wordle.response.WordleGameResponse;
 public class Wordle {
     public final static int MAX_COUNT = 6;
 
-    private final String answer;
     private final LetterDataProcess letterDataProcess;
     private int currentCount;
 
     public Wordle(String answer) {
-        this.answer = answer.toLowerCase();
-        this.letterDataProcess = new LetterDataProcess(this.answer);
+        this.letterDataProcess = new LetterDataProcess(answer);
         currentCount = 0;
     }
 
@@ -43,10 +41,10 @@ public class Wordle {
         currentCount++;
     }
 
-    private GameStatus getGameStatus(String input) {
+    private GameStatus getGameStatus(char[] tips) {
         if (currentCount > Wordle.MAX_COUNT) {
             return GameStatus.OVERED;
-        } else if (answer.equals(input)) {
+        } else if ("GGGGG".equals(String.valueOf(tips))) {
             currentCount = Wordle.MAX_COUNT;
             return GameStatus.WIN;
         } else if (currentCount == Wordle.MAX_COUNT) {
@@ -58,7 +56,7 @@ public class Wordle {
 
 
     private char[] createGreenChars(String input) {
-        char[] chars = new char[answer.length()];
+        char[] chars = new char[input.length()];
         for (int index = 0; index < input.length(); index++) {
             chars[index] = '_';
             char ch = input.charAt(index);
@@ -94,6 +92,10 @@ public class Wordle {
     public WordleGameResponse game(String input) {
         addCurrentCount();
         String guess = input.toLowerCase();
-        return new WordleGameResponse(createTips(guess), getGameStatus(guess), currentCount);
+        char[] tips = createTips(guess);
+        return new WordleGameResponse(
+                tips,
+                getGameStatus(tips),
+                currentCount);
     }
 }
