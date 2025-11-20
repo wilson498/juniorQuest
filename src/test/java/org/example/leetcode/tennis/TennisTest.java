@@ -10,14 +10,11 @@ class TennisTest {
     private Tennis tennis;
 
 
-    private void givenAScore(Tennis tennis, int count) {
-        for (int i = 0; i < count; i++) {
+    private void giveTeamScore(int aScoreCount, int bScoreCount) {
+        for (int i = 0; i < aScoreCount; i++) {
             tennis.teamAScore();
         }
-    }
-
-    private void givenBScore(Tennis tennis, int count) {
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < bScoreCount; i++) {
             tennis.teamBScore();
         }
     }
@@ -34,51 +31,61 @@ class TennisTest {
 
     @Test
     void fifteen_zero() {
-
-        givenAScore(tennis, 1);
+        giveTeamScore(1, 0);
         Assertions.assertEquals("fifteen-love", tennis.getCurrentScore());
     }
 
     @Test
+    void zero_fifteen() {
+        giveTeamScore(0, 1);
+        Assertions.assertEquals("love-fifteen", tennis.getCurrentScore());
+    }
+
+    @Test
     void fifteen_fifteen() {
-        givenAScore(tennis, 1);
-        givenBScore(tennis, 1);
+        giveTeamScore(1, 1);
         Assertions.assertEquals("fifteen-all", tennis.getCurrentScore());
     }
 
     @Test
     void forty_thirty() {
-        givenAScore(tennis, 3);
-        givenBScore(tennis, 2);
+        giveTeamScore(3, 2);
         Assertions.assertEquals("forty-thirty", tennis.getCurrentScore());
     }
 
     @Test
     void forty_forty() {
-        givenAScore(tennis, 3);
-        givenBScore(tennis, 3);
+        giveTeamScore(3, 3);
         Assertions.assertEquals("deuce", tennis.getCurrentScore());
     }
 
     @Test
     void a_advantage() {
-        givenAScore(tennis, 4);
-        givenBScore(tennis, 3);
+        giveTeamScore(4, 3);
         Assertions.assertEquals("a adv", tennis.getCurrentScore());
     }
 
     @Test
     void a_win() {
-        givenAScore(tennis, 4);
-        givenBScore(tennis, 2);
+        giveTeamScore(4, 2);
         Assertions.assertEquals("a win", tennis.getCurrentScore());
     }
 
     @Test
     void a_advantage_before_win() {
-        givenAScore(tennis, 5);
-        givenBScore(tennis, 3);
+        giveTeamScore(5, 3);
         Assertions.assertEquals("a win", tennis.getCurrentScore());
+    }
 
+    @Test
+    void b_advantage() {
+        giveTeamScore(3, 4);
+        Assertions.assertEquals("b adv", tennis.getCurrentScore());
+    }
+
+    @Test
+    void b_advantage_before_win() {
+        giveTeamScore(3, 5);
+        Assertions.assertEquals("b win", tennis.getCurrentScore());
     }
 }
