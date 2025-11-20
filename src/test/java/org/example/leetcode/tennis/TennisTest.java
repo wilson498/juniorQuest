@@ -24,32 +24,13 @@ class TennisTest {
         tennis = new Tennis();
     }
 
-
-    @Test
-    void zero_zero() {
-        assertionCurrentScore("love-all");
-    }
-
     private void assertionCurrentScore(String expected) {
         Assertions.assertEquals(expected, tennis.getCurrentScore());
     }
 
     @Test
-    void fifteen_zero() {
-        giveTeamScore(1, 0);
-        assertionCurrentScore("fifteen-love");
-    }
-
-    @Test
-    void thirty_zero() {
-        giveTeamScore(2, 0);
-        assertionCurrentScore("thirty-love");
-    }
-
-    @Test
-    void forty_zero() {
-        giveTeamScore(3, 0);
-        assertionCurrentScore("forty-love");
+    void zero_zero() {
+        assertionCurrentScore("love-all");
     }
 
     @Test
@@ -71,6 +52,12 @@ class TennisTest {
     }
 
     @Test
+    void fifteen_zero() {
+        giveTeamScore(1, 0);
+        assertionCurrentScore("fifteen-love");
+    }
+
+    @Test
     void fifteen_fifteen() {
         giveTeamScore(1, 1);
         assertionCurrentScore("fifteen-all");
@@ -89,21 +76,39 @@ class TennisTest {
     }
 
     @Test
+    void thirty_zero() {
+        giveTeamScore(2, 0);
+        assertionCurrentScore("thirty-love");
+    }
+
+    @Test
     void thirty_fifteen() {
         giveTeamScore(2, 1);
         assertionCurrentScore("thirty-fifteen");
     }
 
     @Test
-    void forty_fifteen() {
-        giveTeamScore(3, 1);
-        assertionCurrentScore("forty-fifteen");
+    void thirty_thirty() {
+        giveTeamScore(2, 2);
+        assertionCurrentScore("thirty-all");
     }
 
     @Test
     void thirty_forty() {
         giveTeamScore(2, 3);
         assertionCurrentScore("thirty-forty");
+    }
+    @Test
+    void forty_zero() {
+        giveTeamScore(3, 0);
+        assertionCurrentScore("forty-love");
+    }
+
+
+    @Test
+    void forty_fifteen() {
+        giveTeamScore(3, 1);
+        assertionCurrentScore("forty-fifteen");
     }
 
 
@@ -112,8 +117,6 @@ class TennisTest {
         giveTeamScore(3, 2);
         assertionCurrentScore("forty-thirty");
     }
-
-
 
     @Test
     void forty_forty() {

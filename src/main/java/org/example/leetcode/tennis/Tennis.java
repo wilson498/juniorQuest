@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Tennis {
 
-    public static final List<String> scoreList = List.of(
+    public final List<String> scoreList = List.of(
             "love",
             "fifteen",
             "thirty",
