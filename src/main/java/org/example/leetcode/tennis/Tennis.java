@@ -55,15 +55,15 @@ public class Tennis {
         }
     }
 
-    private Boolean isGamePoint() {
+    private boolean isGamePoint() {
         return teamAScoreCount > 3 || teamBScoreCount > 3;
     }
 
-    private Boolean isSameScore() {
+    private boolean isSameScore() {
         return teamAScoreCount == teamBScoreCount;
     }
 
-    private Boolean isDeuce() {
+    private boolean isDeuce() {
         return teamAScoreCount >= 3 && isSameScore();
     }
 
