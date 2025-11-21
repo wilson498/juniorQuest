@@ -27,27 +27,37 @@ public class Tennis {
 
         String aScoreString = getScoreStringText(teamAScoreCount);
         String bScoreString = getScoreStringText(teamBScoreCount);
-        boolean gamePoint = teamAScoreCount > 3 || teamBScoreCount > 3;
-        boolean isSameScore = teamAScoreCount == teamBScoreCount;
-        boolean deuce = teamAScoreCount >= 3 && isSameScore;
-
-        GameStatus gameStatus = getGameStatus(deuce, gamePoint);
+        GameStatus gameStatus = getGameStatus();
         switch (gameStatus) {
             case DEUCE -> result.append("deuce");
             case WIN -> result.append(getAdvantageTeam()).append(" win");
             case ADVANTAGE -> result.append(getAdvantageTeam()).append(" adv");
             case CONDUCT -> result.append(aScoreString)
                     .append("-")
-                    .append(isSameScore ? "all" : bScoreString);
+                    .append(isSameScore() ? "all" : bScoreString);
 
         }
+
         return result.toString();
     }
 
-    private GameStatus getGameStatus(boolean deuce, boolean gamePoint) {
-        if (deuce) {
+    public Boolean isGamePoint() {
+        return teamAScoreCount > 3 || teamBScoreCount > 3;
+    }
+
+    public Boolean isSameScore() {
+        return teamAScoreCount == teamBScoreCount;
+    }
+
+    public Boolean isDeuce() {
+        return teamAScoreCount >= 3 && isSameScore();
+    }
+
+
+    private GameStatus getGameStatus() {
+        if (isDeuce()) {
             return GameStatus.DEUCE;
-        } else if (Math.abs(teamAScoreCount - teamBScoreCount) > 1 && gamePoint) {
+        } else if (isGamePoint() && Math.abs(teamAScoreCount - teamBScoreCount) > 1) {
             return GameStatus.WIN;
         } else if (teamAScoreCount >= 3 && teamBScoreCount >= 3) {
             return GameStatus.ADVANTAGE;
