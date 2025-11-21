@@ -30,7 +30,7 @@ public class Tennis {
         GameStatus gameStatus = getGameStatus();
         switch (gameStatus) {
             case DEUCE -> result.append("deuce");
-            case WIN -> result.append(getAdvantageTeam()).append(" win");
+            case GAMEOVER -> result.append(getAdvantageTeam()).append(" win");
             case ADVANTAGE -> result.append(getAdvantageTeam()).append(" adv");
             case CONDUCT -> result.append(aScoreString)
                     .append("-")
@@ -41,30 +41,38 @@ public class Tennis {
         return result.toString();
     }
 
-    public Boolean isGamePoint() {
+    private Boolean isGamePoint() {
         return teamAScoreCount > 3 || teamBScoreCount > 3;
     }
 
-    public Boolean isSameScore() {
+    private Boolean isSameScore() {
         return teamAScoreCount == teamBScoreCount;
     }
 
-    public Boolean isDeuce() {
+    private Boolean isDeuce() {
         return teamAScoreCount >= 3 && isSameScore();
     }
 
+    private boolean isGameOver() {
+        return isGamePoint() && Math.abs(teamAScoreCount - teamBScoreCount) > 1;
+    }
+
+    private boolean isAdvantageGame() {
+        return teamAScoreCount >= 3 && teamBScoreCount >= 3 && !isSameScore();
+    }
 
     private GameStatus getGameStatus() {
         if (isDeuce()) {
             return GameStatus.DEUCE;
-        } else if (isGamePoint() && Math.abs(teamAScoreCount - teamBScoreCount) > 1) {
-            return GameStatus.WIN;
-        } else if (teamAScoreCount >= 3 && teamBScoreCount >= 3) {
+        } else if (isGameOver()) {
+            return GameStatus.GAMEOVER;
+        } else if (isAdvantageGame()) {
             return GameStatus.ADVANTAGE;
         } else {
             return GameStatus.CONDUCT;
         }
     }
+
 
 
     private String getAdvantageTeam() {
@@ -80,7 +88,7 @@ public class Tennis {
 
     enum GameStatus {
         DEUCE,
-        WIN,
+        GAMEOVER,
         ADVANTAGE,
         CONDUCT
     }
