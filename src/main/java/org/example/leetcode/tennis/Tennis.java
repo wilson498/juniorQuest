@@ -23,24 +23,16 @@ public class Tennis {
     }
 
     public String getCurrentScore() {
-        StringBuilder result = new StringBuilder();
-
+        GameStatus gameStatus = getGameStatus();
         String aScoreString = getScoreStringText(teamAScoreCount);
         String bScoreString = getScoreStringText(teamBScoreCount);
-        GameStatus gameStatus = getGameStatus();
-        switch (gameStatus) {
-            case DEUCE -> result.append("deuce");
-            case GAME_OVER -> result.append(getAdvantageTeam()).append(" win");
-            case ADVANTAGE -> result.append(getAdvantageTeam()).append(" adv");
-            case CONDUCT -> result.append(aScoreString)
-                    .append("-")
-                    .append(isSameScore() ? "all" : bScoreString);
-
-        }
-
-        return result.toString();
+        return switch (gameStatus) {
+            case DEUCE -> "deuce";
+            case GAME_OVER -> getAdvantageTeam() + " win";
+            case ADVANTAGE -> getAdvantageTeam() + " adv";
+            case CONDUCT -> aScoreString + "-" + (isSameScore() ? "all" : bScoreString);
+        };
     }
-
 
 
     private GameStatus getGameStatus() {
