@@ -42,13 +42,15 @@ public class Tennis {
     private GameStatus getGameStatus() {
         if (isDeuce()) {
             return GameStatus.DEUCE;
-        } else if (isGameOver()) {
-            return GameStatus.GAME_OVER;
-        } else if (isAdvantageGame()) {
-            return GameStatus.ADVANTAGE;
-        } else {
-            return GameStatus.CONDUCT;
         }
+        if (isGameOver()) {
+            return GameStatus.GAME_OVER;
+        }
+        if (isAdvantageGame()) {
+            return GameStatus.ADVANTAGE;
+        }
+        return GameStatus.CONDUCT;
+
     }
 
     private boolean isGamePoint() {
