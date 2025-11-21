@@ -24,14 +24,18 @@ public class Tennis {
 
     public String getCurrentScore() {
         GameStatus gameStatus = getGameStatus();
-        String aScoreString = getScoreStringText(teamAScoreCount);
-        String bScoreString = getScoreStringText(teamBScoreCount);
         return switch (gameStatus) {
             case DEUCE -> "deuce";
             case GAME_OVER -> getAdvantageTeam() + " win";
             case ADVANTAGE -> getAdvantageTeam() + " adv";
-            case CONDUCT -> aScoreString + "-" + (isSameScore() ? "all" : bScoreString);
+            case CONDUCT -> getNormal();
         };
+    }
+
+    private String getNormal() {
+        String aScoreString = getScoreStringText(teamAScoreCount);
+        String bScoreString = getScoreStringText(teamBScoreCount);
+        return aScoreString + "-" + (isSameScore() ? "all" : bScoreString);
     }
 
 
