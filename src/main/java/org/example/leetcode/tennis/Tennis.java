@@ -13,6 +13,13 @@ public class Tennis {
 
     private int teamAScoreCount = 0;
     private int teamBScoreCount = 0;
+    private final String teamA;
+    private final String teamB;
+
+    public Tennis(String teamA, String teamB) {
+        this.teamA = teamA;
+        this.teamB = teamB;
+    }
 
     public void teamAScore() {
         teamAScoreCount++;
@@ -74,7 +81,7 @@ public class Tennis {
     }
 
     private String getAdvantageTeam() {
-        return teamAScoreCount > teamBScoreCount ? "a" : "b";
+        return teamAScoreCount > teamBScoreCount ? this.teamA : this.teamB;
     }
 
     private String getScoreStringText(int count) {

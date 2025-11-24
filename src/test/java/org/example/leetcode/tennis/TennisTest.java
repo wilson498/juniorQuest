@@ -21,12 +21,11 @@ class TennisTest {
 
     @BeforeEach
     void setUp() {
-        tennis = new Tennis();
+        tennis = new Tennis("a","b");
     }
 
     @Test
-    void zero_zero() {
-        givenTeamScore(0, 0);
+    void start_game() {
         Assertions.assertEquals("love-all", tennis.getCurrentScore());
     }
 
